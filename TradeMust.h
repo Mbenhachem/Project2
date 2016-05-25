@@ -62,7 +62,7 @@ public:
 	std::string nameProduct;
 	std::string tradeID;
 	std::string typeProduct;
-	
+	std::string modele;
 
 
 	

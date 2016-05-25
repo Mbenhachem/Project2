@@ -73,20 +73,24 @@ namespace QuantLib
 #include "MyFormTable.h"
 #include "DetailsForm.h"
 #include "GrecsForm.h"
-#include "ProductChoice.h"
 #include <sstream>
 #include <string>
 #include <iostream>
-#include "MustVanilleSwap.h"
-#include "MustCapFloor.h"
+#include "MustProduct.h"
 #include "Pricer.h"
 #include "ComponentIndexMust.h"
 #include "ComponentPrincipalMust.h"
 #include "ComponentCashFlowMust.h"
+#include "ComponentOptionMust.h"
 #include "DateMust.h"
 #include "RateMust.h"
 #include "TradeMust.h"
 #include "Portefeuille.h"
+#include "MustVanilleSwap.h"
+#include "MustCapFloor.h"
+
+
+
 
 namespace Project2
 {
@@ -122,6 +126,9 @@ namespace Project2
 
 	private:
 		MyFormTable ^ formTable;
+
+	private:
+		Portefeuille* portefeuille;
 
 	private:
 		System::Windows::Forms::Button ^ button1;
@@ -165,7 +172,6 @@ namespace Project2
 	private:
 		System::Windows::Forms::Button ^ button4;
 
-	protected:
 	private:
 		System::ComponentModel::Container ^ components;
 
@@ -453,11 +459,15 @@ namespace Project2
 					else // si le fichier est chargé
 					{
 						// création de la fenêtre de la table de mapping
-
 						textBox2->Enabled = true;
 						button2->Enabled = true;
 						button3->Enabled = true;
 						button4->Enabled = true;
+
+						portefeuille = new Portefeuille(pathC);
+
+
+
 					}
 				}
 				else // si le fichier chargé a une autre extension que "xml"
@@ -487,9 +497,10 @@ namespace Project2
 	private:
 		System::Void button3_Click(System::Object ^ sender, System::EventArgs ^ e)
 		{
+			
+
 			tableauNPV->clear();
-			char* pathC
-				= (char*)Marshal::StringToHGlobalAnsi(textBox1->Text).ToPointer(); // chemin du MustML
+			char* pathC = (char*)Marshal::StringToHGlobalAnsi(textBox1->Text).ToPointer(); // chemin du MustML
 
 			/*
 			Pour chaque objet :
@@ -498,8 +509,6 @@ namespace Project2
 			affecter la donnée à une variable du même type
 			*/
 
-			// portefeille qui va se remplir de tous les trades qui existent dans le MustML
-			Portefeuille* portefeuille = new Portefeuille(pathC);
 
 			Catalogue* catalogue = new Catalogue();
 			////
@@ -508,235 +517,233 @@ namespace Project2
 			double npvfloatleg;
 			double npvSomme = 0;
 			/////
-			// vector<tuple<string, string, double, double, double>> tableauNPV;
+			int quitter = 0; // pour quitter la boucle de pricing
+			
 
+			//===============================================================================
+			//===================== BOUCLE QUI CHERCHE LES TYPES ===============
+			//===============================================================================
 			for (std::size_t iTrade = 0; iTrade < portefeuille->AllTrades.size(); iTrade++)
 			{
-				int isInTheCata = portefeuille->isInCatalogue(
-					portefeuille->AllTrades[iTrade]->nameProduct, catalogue);
+				
 
-
-				if (isInTheCata == 1) // càd si le produit existe dans le catalogue des produits
-				{
-					if (portefeuille->AllTrades[iTrade]->nameProduct == "MYSWAP")
+				if (catalogue->SearchType(portefeuille->AllTrades[iTrade]->nameProduct) != "" 
+					&& catalogue->SearchModel(portefeuille->AllTrades[iTrade]->nameProduct) != "") // càd si le produit existe dans le catalogue des produits
 					{
-						// Appel de la table de mapping
-						Mapping* tab_mapp = new Mapping(portefeuille->AllTrades[iTrade]->nameProduct);
-						// nominal
-						string nominalMust = tab_mapp->search_mapping("NominalQuantLib");
-						ComponentPrincipalMust* nominalObj = new ComponentPrincipalMust(
-							pathC, nominalMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Real nominal = nominalObj->nominal[0];
-						// vector<Real>=nominalObj->nominal;
+					portefeuille->AllTrades[iTrade]->modele = catalogue->SearchModel(portefeuille->AllTrades[iTrade]->nameProduct);
+						//textBox2->Text = gcnew String((*typePr)[iTrade].second[0].c_str());
+					if (catalogue->SearchType(portefeuille->AllTrades[iTrade]->nameProduct) == "MYSWAP")
+						{
+							portefeuille->AllTrades[iTrade]->typeProduct = "MYSWAP";
+							
 
-						// settlementDate
-						string startDateMust = tab_mapp->search_mapping("startDateQuantLib");
-						DateMust* startDateObj = new DateMust(
-							pathC, startDateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Date settlementDate = startDateObj->dateQ;
+						} // fin de if pour tester si c un produit de type MYSWAP
 
-						// maturity
-						string endDateMust = tab_mapp->search_mapping("endDateQuantLib");
-						DateMust* endDateObj = new DateMust(
-							pathC, endDateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Date maturity = endDateObj->dateQ;
-
-						// fixedRate
-
-						string fixedRateMust = tab_mapp->search_mapping("FixedRateQuantLib");
-						RateMust* fixedRateObj = new RateMust(
-							pathC, fixedRateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Rate fixedRate = fixedRateObj->rates[0];
-						fixedRateObj->SetMatrixRate(settlementDate, maturity, fixedRateObj->rates);
-
-						//=============FIXED LEG================
-						string fixedLegMust = tab_mapp->search_mapping("FixedLegQuantLib");
-						ComponentCashFlowMust* fixedLegObj = new ComponentCashFlowMust(
-							pathC, fixedLegMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Frequency fixedLegFrequency = fixedLegObj->freqQ;
-						DayCounter fixedLegDayCounter = fixedLegObj->basisQ;
-
-						//=============FLOATING LEG================
-						string floatingLegMust = tab_mapp->search_mapping("FloatingLegQuantLib");
-						ComponentCashFlowMust* floatingLegObj = new ComponentCashFlowMust(
-							pathC, floatingLegMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Frequency floatingLegFrequency = floatingLegObj->freqQ;
-						DayCounter floatingLegDayCounter = floatingLegObj->basisQ;
-
-						// Index
-						string indexMust = tab_mapp->search_mapping("IndexQuantLib");
-						ComponentIndexMust* IndexObj = new ComponentIndexMust(
-							pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
-						IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
-						MustPricer* mustPricer = new MustPricer();
-
-						mustPricer->Test();
-
-						MustVanilleSwap* must_Swap = new MustVanilleSwap(*nominalObj, *fixedLegObj,
-							*floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
-						/*MustCapFloor* must_Cap = new  MustCapFloor(*nominalObj, *floatingLegObj, *IndexObj,*startDateObj, *endDateObj, *fixedRateObj);*/
-
-						//************* Appel des méthodes de pricing
-						npv = mustPricer->Price(must_Swap, 1);
-						npvfixleg = mustPricer->Price(must_Swap, 2);
-						npvfloatleg = mustPricer->Price(must_Swap, 3);
-
-						// limiter les NPV à 2 chiffres après la virgule
-						if (npv >= 0)
-							npv = (floor(npv * 100)) / 100;
-						else
-							npv = (floor(npv * 100 + 1)) / 100;
-
-						if (npvfixleg >= 0)
-							npvfixleg = (floor(npvfixleg * 100)) / 100;
-						else
-							npvfixleg = (floor(npvfixleg * 100 + 1)) / 100;
-
-						if (npvfloatleg >= 0)
-							npvfloatleg = (floor(npvfloatleg * 100)) / 100;
-						else
-							npvfloatleg = (floor(npvfloatleg * 100 + 1)) / 100;
-
-						// sommer les NPV
-						npvSomme += npv;
-
-						// remplir le vecteur de tuple par les résultats des trades un par un.
-						tableauNPV->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
-							portefeuille->AllTrades[iTrade]->nameProduct, npv, npvfixleg, npvfloatleg));
-
-					} // fin de if pour tester si c un produit de type MYSWAP
+					if (catalogue->SearchType(portefeuille->AllTrades[iTrade]->nameProduct) == "MYCAPFLOOR")
+						{
+							portefeuille->AllTrades[iTrade]->typeProduct = "MYCAPFLOOR";
+							
 
 
+						} // fin de if pour tester si c un produit de type MYCAPFLOOR
 
 
-					if (portefeuille->AllTrades[iTrade]->nameProduct == "MYCAPFLOOR")
-					{
-
-						// Appel de la table de mapping
-						Mapping* tab_mapp = new Mapping("MYCAPFLOOR");
-						// nominal
-						string nominalMust = tab_mapp->search_mapping("NominalQuantLib");
-						ComponentPrincipalMust* nominalObj = new ComponentPrincipalMust(
-							pathC, nominalMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Real nominal = nominalObj->nominal[0];
-
-
-						// settlementDate
-						string startDateMust = tab_mapp->search_mapping("startDateQuantLib");
-						DateMust* startDateObj = new DateMust(
-							pathC, startDateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Date settlementDate = startDateObj->dateQ;
-
-						// maturity
-						string endDateMust = tab_mapp->search_mapping("endDateQuantLib");
-						DateMust* endDateObj = new DateMust(
-							pathC, endDateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Date maturity = endDateObj->dateQ;
-
-						// fixedRate
-
-						string fixedRateMust = tab_mapp->search_mapping("StrikeQuantLib");
-						RateMust* fixedRateObj = new RateMust(
-							pathC, fixedRateMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Rate fixedRate = fixedRateObj->rates[0];
-						fixedRateObj->SetMatrixRate(settlementDate, maturity, fixedRateObj->rates);
-
-
-						//=============FLOATING LEG================
-						string floatingLegMust = tab_mapp->search_mapping("FloatingLegQuantLib");
-						ComponentCashFlowMust* floatingLegObj = new ComponentCashFlowMust(
-							pathC, floatingLegMust, portefeuille->AllTrades[iTrade]->tradeID);
-						Frequency floatingLegFrequency = floatingLegObj->freqQ;
-						DayCounter floatingLegDayCounter = floatingLegObj->basisQ;
-
-						// Index
-						string indexMust = tab_mapp->search_mapping("IndexQuantLib");
-						ComponentIndexMust* IndexObj = new ComponentIndexMust(
-							pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
-						IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
-
-						//*******************************
-
-						MustPricer* mustPricer = new MustPricer();
-
-						mustPricer->Test();
-
-						MustCapFloor* must_Cap = new  MustCapFloor(*nominalObj, *floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
-
-						//************* Appel des méthodes de pricing
-						npv = must_Cap->PriceNada_Imane();
-						/*npvfixleg = mustPricer->Price(must_Swap, 2);
-						npvfloatleg = mustPricer->Price(must_Swap, 3);*/
-
-						// limiter les NPV à 2 chiffres après la virgule
-						if (npv >= 0)
-							npv = (floor(npv * 100)) / 100;
-						else
-							npv = (floor(npv * 100 + 1)) / 100;
-
-						if (npvfixleg >= 0)
-							npvfixleg = (floor(npvfixleg * 100)) / 100;
-						else
-							npvfixleg = (floor(npvfixleg * 100 + 1)) / 100;
-
-						if (npvfloatleg >= 0)
-							npvfloatleg = (floor(npvfloatleg * 100)) / 100;
-						else
-							npvfloatleg = (floor(npvfloatleg * 100 + 1)) / 100;
-
-						// sommer les NPV
-						npvSomme += npv;
-
-						// remplir le vecteur de tuple par les résultats des trades un par un.
-						tableauNPV->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
-							portefeuille->AllTrades[iTrade]->nameProduct, npv, npvfixleg, npvfloatleg));
-
-
-					} // fin de if pour tester si c un produit de type MYCAPFLOOR
-
-
-
-
-					textBox2->Text = npvSomme.ToString();
-				}
-
-				if (isInTheCata == 0)
-				{
-					//si le produit n'existe pas dans le catalogue
-					string monMessage = "Le trade de ID : " + portefeuille->AllTrades[iTrade]->tradeID + " n'existe pas dans le catalogue !";
-					System::Windows::Forms::DialogResult result = MessageBox::Show(this, gcnew String(monMessage.c_str()), "Produit inconnu", MessageBoxButtons::OK, MessageBoxIcon::None);
-					if (System::Windows::Forms::DialogResult::OK == result)
-					{
-						formTable = gcnew MyFormTable();
-						formTable->Show();
 					}
+
+				else 
+					{
+						//si le produit n'existe pas dans le catalogue
+						string monMessage = "Le trade '" + portefeuille->AllTrades[iTrade]->nameProduct + "' de ID : " + portefeuille->AllTrades[iTrade]->tradeID + " n'existe pas dans le catalogue !";
+						System::Windows::Forms::DialogResult result = MessageBox::Show(this, gcnew String(monMessage.c_str()), "Produit inconnu", MessageBoxButtons::OK, MessageBoxIcon::None);
+						if (System::Windows::Forms::DialogResult::OK == result)
+						{
+							formTable = gcnew MyFormTable();
+							formTable->Show();
+							quitter = 1;
+							break;
+						}
+					}
+
+				if (quitter == 1)
+				{
+					break;
 				}
 
-				if (isInTheCata>1)
-				{ // plusieurs trades de meme noms et types differents
+			} // fin de la boucle for
 
-					vector<string> vec = portefeuille->listTypes(portefeuille->AllTrades[iTrade]->nameProduct, catalogue);
-					
-					ProductChoice^ choixForm = gcnew ProductChoice(vec);
-					
-					///
-					
-					choixForm->Size = System::Drawing::Size(300, (vec.size() + 5) * 30);
-					///
-					choixForm->button1->Location = System::Drawing::Point(77, (vec.size()+2)*30);
-					choixForm->groupBox1->Size = System::Drawing::Size(250, 30 * (vec.size() + 1));
-					
-					choixForm->Show();
-					textBox1->Text = choixForm->testDeRetour();
 
-				}
-			} // fin de la boucle
+			//===============================================================================
+			//=====================BOUCLE QUI FAIT LE PRICING ===============
+			//===============================================================================
 
-			// Affiche des sommes des NPV, NPV des jambes fixes et des jambes variables.
-			
+
+			if (quitter == 0)
+			{
+				for (std::size_t iTrade = 0; iTrade < portefeuille->AllTrades.size(); iTrade++)
+				{
+					npv = 0;
+					npvfixleg =0;
+					npvfloatleg = 0;
+					if (portefeuille->AllTrades[iTrade]->typeProduct != "") // càd si le produit existe dans le catalogue des produits
+					{
+						if (portefeuille->AllTrades[iTrade]->typeProduct == "MYSWAP")
+						{
+							Mapping* tab_mapp = new Mapping("MYSWAP");
+							// nominal
+							string nominalMust = tab_mapp->search_mapping("NominalQuantLib");
+							ComponentPrincipalMust* nominalObj = new ComponentPrincipalMust(
+								pathC, nominalMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Real nominal = nominalObj->nominal[0];
+							
+
+							// settlementDate
+							string startDateMust = tab_mapp->search_mapping("startDateQuantLib");
+							DateMust* startDateObj = new DateMust(
+								pathC, startDateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Date settlementDate = startDateObj->dateQ;
+
+							// maturity
+							string endDateMust = tab_mapp->search_mapping("endDateQuantLib");
+							DateMust* endDateObj = new DateMust(
+								pathC, endDateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Date maturity = endDateObj->dateQ;
+
+							// fixedRate
+
+							string fixedRateMust = tab_mapp->search_mapping("FixedRateQuantLib");
+							RateMust* fixedRateObj = new RateMust(
+								pathC, fixedRateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Rate fixedRate = fixedRateObj->rates[0];
+							fixedRateObj->SetMatrixRate(settlementDate, maturity, fixedRateObj->rates);
+
+							//=============FIXED LEG================
+							string fixedLegMust = tab_mapp->search_mapping("FixedLegQuantLib");
+							ComponentCashFlowMust* fixedLegObj = new ComponentCashFlowMust(
+								pathC, fixedLegMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Frequency fixedLegFrequency = fixedLegObj->freqQ;
+							DayCounter fixedLegDayCounter = fixedLegObj->basisQ;
+
+							//=============FLOATING LEG================
+							string floatingLegMust = tab_mapp->search_mapping("FloatingLegQuantLib");
+							ComponentCashFlowMust* floatingLegObj = new ComponentCashFlowMust(
+								pathC, floatingLegMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Frequency floatingLegFrequency = floatingLegObj->freqQ;
+							DayCounter floatingLegDayCounter = floatingLegObj->basisQ;
+
+							// Index
+							string indexMust = tab_mapp->search_mapping("IndexQuantLib");
+							ComponentIndexMust* IndexObj = new ComponentIndexMust(
+								pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
+							IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
+
+							//*******************************
+
+							MustPricer* mustPricer = new MustPricer();
+
+							//mustPricer->Test();
+
+							MustVanilleSwap* must_Swap = new MustVanilleSwap(*nominalObj, *fixedLegObj,
+								*floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
+							
+
+							//************* Appel des méthodes de pricing
+							npv = mustPricer->Price(must_Swap, 1);
+							npvfixleg = mustPricer->Price(must_Swap, 2);
+							npvfloatleg = mustPricer->Price(must_Swap, 3);
+
+							// limiter les NPV à 2 chiffres après la virgule
+							DeuxChiff(&npv);
+							DeuxChiff(&npvfixleg);
+							DeuxChiff(&npvfloatleg);
+
+							// sommer les NPV
+							npvSomme += npv;
+
+							// remplir le vecteur de tuple par les résultats des trades un par un.
+							tableauNPV->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
+								portefeuille->AllTrades[iTrade]->nameProduct, npv, npvfixleg, npvfloatleg));
+								
+						} // fin de if pour tester si c un produit de type MYSWAP
+
+						if (portefeuille->AllTrades[iTrade]->typeProduct == "MYCAPFLOOR")
+						{
+							Mapping* tab_mapp = new Mapping("MYCAPFLOOR");
+							// nominal
+							string nominalMust = tab_mapp->search_mapping("NominalQuantLib");
+							ComponentPrincipalMust* nominalObj = new ComponentPrincipalMust(
+								pathC, nominalMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Real nominal = nominalObj->nominal[0];
+
+
+							// settlementDate
+							string startDateMust = tab_mapp->search_mapping("startDateQuantLib");
+							DateMust* startDateObj = new DateMust(
+								pathC, startDateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Date settlementDate = startDateObj->dateQ;
+
+							// maturity
+							string endDateMust = tab_mapp->search_mapping("endDateQuantLib");
+							DateMust* endDateObj = new DateMust(
+								pathC, endDateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Date maturity = endDateObj->dateQ;
+
+							// fixedRate
+
+							string fixedRateMust = tab_mapp->search_mapping("StrikeQuantLib");
+							RateMust* fixedRateObj = new RateMust(
+								pathC, fixedRateMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Rate fixedRate = fixedRateObj->rates[0];
+							fixedRateObj->SetMatrixRate(settlementDate, maturity, fixedRateObj->rates);
+
+
+							//=============FLOATING LEG================
+							string floatingLegMust = tab_mapp->search_mapping("FloatingLegQuantLib");
+							ComponentCashFlowMust* floatingLegObj = new ComponentCashFlowMust(
+								pathC, floatingLegMust, portefeuille->AllTrades[iTrade]->tradeID);
+							Frequency floatingLegFrequency = floatingLegObj->freqQ;
+							DayCounter floatingLegDayCounter = floatingLegObj->basisQ;
+
+							// Index
+							string indexMust = tab_mapp->search_mapping("IndexQuantLib");
+							ComponentIndexMust* IndexObj = new ComponentIndexMust(
+								pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
+							IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
+
+							//*******************************
+
+							MustPricer* mustPricer = new MustPricer();
+							
+							//mustPricer->Test();
+
+							MustCapFloor* must_Cap = new  MustCapFloor(*nominalObj, *floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
+
+							//************* Appel des méthodes de pricing
+							npv = mustPricer->Price(must_Cap, 1);
+
+							// limiter les NPV à 2 chiffres après la virgule
+							DeuxChiff(&npv);
+
+							// sommer les NPV
+							npvSomme += npv;
+
+							// remplir le vecteur de tuple par les résultats des trades un par un.
+							tableauNPV->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
+								portefeuille->AllTrades[iTrade]->nameProduct, npv, npvfixleg, npvfloatleg));
+
+							//** code de pricing
+							
+						} // fin de if pour tester si c'est un produit de type MYCAPFLOOR
+					}
+					
+				}// fin de la boucle for
+				// affichage de la NPV globale
+				textBox2->Text = npvSomme.ToString();
+			}// fin de if (quitter == 0 )
+
 		}
 
 	private:
+		//détails NPV
 		System::Void button2_Click(System::Object ^ sender, System::EventArgs ^ e)
 		{
 			DetailsForm ^ detailsForm = gcnew DetailsForm();
@@ -765,11 +772,22 @@ namespace Project2
 		}
 
 	private:
+		//détails grecs
 		System::Void button4_Click(System::Object ^ sender, System::EventArgs ^ e)
 		{
 			GrecsForm ^ grecsFrom = gcnew GrecsForm();
 
 			grecsFrom->Show();
+		}
+
+	private : 
+		void DeuxChiff(double *my_double) /* test attend l'adresse d'un entier... */
+		{
+			if (*my_double >= 0)
+					*my_double = (floor(*my_double * 100)) / 100;
+			else
+					*my_double = (floor(*my_double * 100 + 1)) / 100;
+			return;
 		}
 	};
 }
