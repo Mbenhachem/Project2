@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\tinyxml">
+      <UniqueIdentifier>{7490a420-27b4-4804-bac0-dce01d70dd76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{fcecb1f2-6a25-4c76-9eec-5442b652bba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pricing">
+      <UniqueIdentifier>{05c50bc4-0277-408a-8abd-19cb7ac7d8be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mapping">
+      <UniqueIdentifier>{e3b908f4-d490-40e2-8919-8c7ea0e29c24}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlparser.cpp">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinystr.cpp">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml.cpp">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxmlerror.cpp">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="MustProduct.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapFloatingLeg.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapFixedLeg.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+    <ClCompile Include="MustVanilleSwap.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+    <ClCompile Include="MustCapFloor.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+    <ClCompile Include="MustSwaption.cpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyFormTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tinystr.h">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml.h">
+      <Filter>Source Files\tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCashFlowMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentIndexMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentPrincipalMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DateMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RateMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveData.hpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapFixedLeg.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapFloatingLeg.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="MustProduct.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeMust.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatriceMust.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Pricer.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="Portefeuille.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DetailsForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GrecsForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mapping.h">
+      <Filter>Source Files\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="Catalogue.h">
+      <Filter>Source Files\Mapping</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductChoice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MustCapFloor.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="MustVanilleSwap.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="Volatility.hpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="LMM.hpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveDataMod.hpp">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+    <ClInclude Include="MustSwaption.h">
+      <Filter>Source Files\Pricing</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="GrecsForm.resx" />
+    <EmbeddedResource Include="MyForm.resx" />
+    <EmbeddedResource Include="MyFormTable.resx" />
+    <EmbeddedResource Include="ProductChoice.resx" />
+  </ItemGroup>
+</Project>

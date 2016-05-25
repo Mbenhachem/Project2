@@ -1,0 +1,15 @@
+﻿Build started 05/02/2016 16:20:11.
+     1>Project "C:\Users\IMAD\documents\visual studio 2013\Projects\Project2\Project2\Project2.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _UNICODE /D UNICODE /EHa /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MyForm.cpp
+         MyForm.cpp
+     1>c:\users\imad\documents\visual studio 2013\projects\project2\project2\myform.h(257): warning C4700: uninitialized local variable 'InstrumentType' used
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\IMAD\documents\visual studio 2013\Projects\Project2\Release\Project2.exe" /INCREMENTAL:NO /NOLOGO /ASSEMBLYRESOURCE:Release\Project2.MyForm.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\IMAD\documents\visual studio 2013\Projects\Project2\Release\Project2.pdb" /TLBID:1 /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /SAFESEH Release\MyForm.obj
+         "Release\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
+         Project2.vcxproj -> C:\Users\IMAD\documents\visual studio 2013\Projects\Project2\Release\Project2.exe
+     1>Done Building Project "C:\Users\IMAD\documents\visual studio 2013\Projects\Project2\Project2\Project2.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:37.94

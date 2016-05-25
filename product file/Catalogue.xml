@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BODY>
+    <productList>
+        <prod name="MYSWAP" type="MYSWAP">MYSWAP.xml</prod>
+        <prod name="CAP" type="MYSWAP">MYSWAP.xml</prod>
+        <prod name="MYCAPFLOOR" type="MYCAPFLOOR">MYCAPFLOOR.xml</prod>
+    </productList>
+    <typeList>
+        <prod type="MYSWAP">MYSWAP.xml</prod>
+        <prod type="MYCAPFLOOR">MYCAPFLOOR.xml</prod>
+    </typeList>
+</BODY>
