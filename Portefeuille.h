@@ -53,19 +53,19 @@ public:
 	//==========================================================
 	//============================= Méthodes====================
 	//===========================================================
-	
 
-	int isInCatalogue(string nameProd, Catalogue* cata)
+
+	vector<string> vecTypes(string nameProd, Catalogue* cata)
 	{
-		int retour = 0;
+		vector <string> types;
 		for (size_t indice = 0; indice < cata->VecCatalogue.size(); indice++)
 		{
 			if (cata->VecCatalogue[indice][0] == nameProd)
 			{
-				retour++;
+				types.push_back(cata->VecCatalogue[indice][1]);
 			}
 		}
-		return retour;
+		return types;
 	}
 
 

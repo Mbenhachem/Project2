@@ -74,14 +74,17 @@ namespace Project2 {
 
 	public:
 
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column4;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column5;
-	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column6;
+
+
+
 	private: System::Windows::Forms::Button^  button4;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column1;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column2;
-	public: System::Windows::Forms::Label^  label1;
-
+	private: System::Windows::Forms::DataGridViewCheckBoxColumn^  Column3;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column7;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column4;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^  Column5;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column6;
 
 
 	private:
@@ -100,21 +103,22 @@ namespace Project2 {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->dataG = (gcnew System::Windows::Forms::DataGridView());
-			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->Column6 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
 			this->Column1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->Column2 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
+			this->Column3 = (gcnew System::Windows::Forms::DataGridViewCheckBoxColumn());
+			this->Column7 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->Column4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Column6 = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
@@ -155,31 +159,6 @@ namespace Project2 {
 			this->dataG->Name = L"dataG";
 			this->dataG->Size = System::Drawing::Size(502, 297);
 			this->dataG->TabIndex = 22;
-			// 
-			// Column4
-			// 
-			this->Column4->HeaderText = L"Composante MUST";
-			this->Column4->Name = L"Column4";
-			this->Column4->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
-			this->Column4->Width = 150;
-			// 
-			// Column5
-			// 
-			this->Column5->HeaderText = L"Type Must";
-			this->Column5->Name = L"Column5";
-			this->Column5->ReadOnly = true;
-			this->Column5->Width = 150;
-			// 
-			// Column6
-			// 
-			this->Column6->HeaderText = L"Objet QuantLib";
-			this->Column6->Items->AddRange(gcnew cli::array< System::Object^  >(9) {
-				L"FixedLegQuantLib", L"FloatingLegQuantLib", L"IndexQuantLib",
-					L"NominalQuantLib", L"startDateQuantLib", L"endDateQuantLib", L"FixedRateQuantLib", L"PayOffQuantLib", L"StrikeQuantLib"
-			});
-			this->Column6->Name = L"Column6";
-			this->Column6->Resizable = System::Windows::Forms::DataGridViewTriState::True;
-			this->Column6->Width = 150;
 			// 
 			// button1
 			// 
@@ -231,7 +210,6 @@ namespace Project2 {
 			// 
 			// tabPage1
 			// 
-			this->tabPage1->Controls->Add(this->label1);
 			this->tabPage1->Controls->Add(this->button4);
 			this->tabPage1->Controls->Add(this->dataGridView1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
@@ -241,15 +219,6 @@ namespace Project2 {
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Types de produits";
 			this->tabPage1->UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(306, 12);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(13, 13);
-			this->label1->TabIndex = 2;
-			this->label1->Text = L"1";
 			// 
 			// button4
 			// 
@@ -265,20 +234,20 @@ namespace Project2 {
 			// 
 			this->dataGridView1->BackgroundColor = System::Drawing::Color::WhiteSmoke;
 			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->Column1,
-					this->Column2
+					this->Column2, this->Column3, this->Column7
 			});
-			this->dataGridView1->Location = System::Drawing::Point(67, 43);
+			this->dataGridView1->Location = System::Drawing::Point(7, 44);
 			this->dataGridView1->Name = L"dataGridView1";
-			this->dataGridView1->Size = System::Drawing::Size(449, 373);
+			this->dataGridView1->Size = System::Drawing::Size(558, 373);
 			this->dataGridView1->TabIndex = 0;
 			// 
 			// Column1
 			// 
 			this->Column1->HeaderText = L"Produit";
 			this->Column1->Name = L"Column1";
-			this->Column1->Width = 200;
+			this->Column1->Width = 150;
 			// 
 			// Column2
 			// 
@@ -286,7 +255,23 @@ namespace Project2 {
 			this->Column2->Name = L"Column2";
 			this->Column2->Resizable = System::Windows::Forms::DataGridViewTriState::True;
 			this->Column2->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
-			this->Column2->Width = 200;
+			this->Column2->Width = 150;
+			// 
+			// Column3
+			// 
+			this->Column3->HeaderText = L"Activé";
+			this->Column3->Name = L"Column3";
+			this->Column3->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Column3->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			this->Column3->Width = 60;
+			// 
+			// Column7
+			// 
+			this->Column7->HeaderText = L"Modèle";
+			this->Column7->Name = L"Column7";
+			this->Column7->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Column7->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::Automatic;
+			this->Column7->Width = 150;
 			// 
 			// tabPage2
 			// 
@@ -305,6 +290,32 @@ namespace Project2 {
 			this->tabPage2->Text = L"Table de mapping";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
+			// Column4
+			// 
+			this->Column4->HeaderText = L"Composante MUST";
+			this->Column4->Name = L"Column4";
+			this->Column4->SortMode = System::Windows::Forms::DataGridViewColumnSortMode::NotSortable;
+			this->Column4->Width = 150;
+			// 
+			// Column5
+			// 
+			this->Column5->HeaderText = L"Type Must";
+			this->Column5->Name = L"Column5";
+			this->Column5->ReadOnly = true;
+			this->Column5->Width = 150;
+			// 
+			// Column6
+			// 
+			this->Column6->HeaderText = L"Objet QuantLib";
+			this->Column6->Items->AddRange(gcnew cli::array< System::Object^  >(11) {
+				L"FixedLegQuantLib", L"FloatingLegQuantLib", L"OptionQuantLib",
+					L"IndexQuantLib", L"NominalQuantLib", L"startDateQuantLib", L"endDateQuantLib", L"startDateOption", L"endDateOption", L"FixedRateQuantLib",
+					L"StrikeQuantLib"
+			});
+			this->Column6->Name = L"Column6";
+			this->Column6->Resizable = System::Windows::Forms::DataGridViewTriState::True;
+			this->Column6->Width = 150;
+			// 
 			// MyFormTable
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -317,7 +328,6 @@ namespace Project2 {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataG))->EndInit();
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
-			this->tabPage1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->tabPage2->ResumeLayout(false);
 			this->tabPage2->PerformLayout();
@@ -528,16 +538,21 @@ private: System::Void MyFormTable_Load(System::Object^  sender, System::EventArg
 						 //remplir les colonnes de la dataGrid avec les elements du vecteur VecCatalogue de l'objet catalogue
 						 dataGridView1->Rows[indice]->Cells[0]->Value = gcnew String(catalogue->VecCatalogue[indice][0].c_str());
 						 dataGridView1->Rows[indice]->Cells[1]->Value = gcnew String(catalogue->VecCatalogue[indice][1].c_str());
+						 dataGridView1->Rows[indice]->Cells[2]->Value = gcnew String(catalogue->VecCatalogue[indice][2].c_str());
+						 dataGridView1->Rows[indice]->Cells[3]->Value = gcnew String(catalogue->VecCatalogue[indice][3].c_str());
 					 }
 				 }
-
+				 for (size_t indice = 0; indice < catalogue->VecCatalogueModel.size(); indice++)
+				 {
+					 //remplir la comboBox de la colonnes 4 par les modeles
+					 Column7->Items->AddRange(gcnew String(catalogue->VecCatalogueModel[indice].c_str()));
+					 
+				 }
 				 for (size_t indice = 0; indice < catalogue->VecCatalogueType.size(); indice++)
 				 {
 					 //remplir un autre vecteur avce les types de produits
 					 elementsComboBox.push_back(catalogue->VecCatalogueType[indice][0]);
 				 }
-
-
 
 				 //supprimer les doublons dans le vecteur elementsComboBox
 				 elementsComboBox = catalogue->SuppDoublons(elementsComboBox);
@@ -558,26 +573,43 @@ private: System::Void MyFormTable_Load(System::Object^  sender, System::EventArg
 private: System::Void button4_Click(System::Object^  sender, System::EventArgs^  e) 
 {
 			 Catalogue* catalogue = new Catalogue();
-			 //parcourir toute la dataGrid
-			 //pour chaque ligne :
-			 // - verifier si nom+type (l'identifiant) existent dans le catalogue
-			 // si oui : passer
-			 // sinon : updateCatalogue
 			 
 			 catalogue->deleteCatalogue();
 
 
 			 for(int indice = 0; indice < dataGridView1->Rows->Count-1;indice++)
 			 {
-				 if (dataGridView1->Rows[indice]->Cells[0]->Value != nullptr && dataGridView1->Rows[indice]->Cells[1]->Value != nullptr)
+				 if (dataGridView1->Rows[indice]->Cells[0]->Value != nullptr 
+					 && dataGridView1->Rows[indice]->Cells[1]->Value != nullptr
+					 && dataGridView1->Rows[indice]->Cells[3]->Value != nullptr)
 				 {
 					 char* name = (char*)Marshal::StringToHGlobalAnsi(dataGridView1->Rows[indice]->Cells[0]->Value->ToString()).ToPointer();
-					 char* type = (char*)Marshal::StringToHGlobalAnsi(dataGridView1->Rows[indice]->Cells[1]->Value->ToString()).ToPointer();
-					 string nameProd(name);
-					 string typeProd(type);
-					 if (!catalogue->isInCatalogue(typeProd,nameProd))
+					 char* type = (char*)Marshal::StringToHGlobalAnsi(dataGridView1->Rows[indice]->Cells[1]->Value->ToString()).ToPointer();	
+					 char* activate;
+					 if (dataGridView1->Rows[indice]->Cells[2]->Value == nullptr)
+						activate = "False";
+					 else
+						 activate = (char*)Marshal::StringToHGlobalAnsi(dataGridView1->Rows[indice]->Cells[2]->Value->ToString()).ToPointer();
+					  
+					 char* modele = (char*)Marshal::StringToHGlobalAnsi(dataGridView1->Rows[indice]->Cells[3]->Value->ToString()).ToPointer();
+
+					 if (!catalogue->isInCatalogue(string(type),string(name)))
 					 {
-						 catalogue->updateCatalogue(type,name);
+						 if (!catalogue->doublonsActifs(string(name), string(activate), indice))
+						 {
+							 catalogue->updateCatalogue(type, name, activate,modele);
+
+						 }
+						 else
+						 {
+							 MessageBox::Show(
+								 "Un produit du même nom est déjà activé",
+								 "Produit existant", MessageBoxButtons::OK,
+								 MessageBoxIcon::Warning);
+
+							 dataGridView1->Rows[indice]->Cells[2]->Value = "False";
+						 }
+						 
 					 }
 					 else
 					 {
@@ -591,10 +623,16 @@ private: System::Void button4_Click(System::Object^  sender, System::EventArgs^ 
 
 
 				 }
+				 else
+				 {
+					 MessageBox::Show(
+						 "Veuillez entrer tous les champs !",
+						 "Données manquantes", MessageBoxButtons::OK,
+						 MessageBoxIcon::Warning);
+
+				 }
 			 }
 
-
-			 
 }
 
 

@@ -163,9 +163,6 @@ public:
 
 	}
 
-
-
-
 public:
 	string IndexCcy;
 	string IndexFreq;

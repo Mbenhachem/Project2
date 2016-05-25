@@ -70,6 +70,7 @@ public:
 									{
 										rates.push_back(this->eff_convert_rate(rateString));
 										test++;
+										
 									}
 
 								}
@@ -100,9 +101,8 @@ public:
 
 	//Attributs
 	string rateString;
-	//Rate rateQ;
 	vector<Rate> rates;
-	std::vector<std::tuple<Date, Date, Rate>> matrixRate;
+	vector<tuple<Date, Date, Rate>> matrixRate;
 
 
 

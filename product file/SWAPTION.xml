@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<BODY>
+    <product name="MYSWAP">
+        <mapping>
+		
+		
+			<comp type="COMPONENT_OPTION">
+                <property name="OptionQuantLib">Option</property>
+            </comp>
+			
+			
+			
+            <comp type="COMPONENT_CASHFLOW">
+                <property name="FixedLegQuantLib">FixedLeg</property>
+            </comp>
+            <comp type="COMPONENT_CASHFLOW">
+                <property name="FloatingLegQuantLib">FloatingLeg</property>
+            </comp>
+            <comp type="COMPONENT_INDEX">
+                <property name="IndexQuantLib">IndexRate</property>
+            </comp>
+            <comp type="COMPONENT_PRINCIPAL">
+                <property name="NominalQuantLib">Notional</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="startDateQuantLib">MStartDate</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="endDateQuantLib">MEndDate</property>
+            </comp>
+			<comp type="FULLDATE">
+                <property name="startDateOption">MStartDate</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="endDateOption">MEndDate</property>
+            </comp>
+            <comp type="RATE">
+                <property name="FixedRateQuantLib">FixedRate</property>
+            </comp>
+        </mapping>
+    </product>
+</BODY>
