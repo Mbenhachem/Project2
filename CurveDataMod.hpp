@@ -1,9 +1,13 @@
+#ifndef CURVEDATAMOD_H
+#define CURVEDATAMOD_H
+
 #include <boost/format.hpp>
 #include <boost/foreach.hpp>
 #include <boost/timer.hpp>
 #include <iostream> 
 #include <ql/quantlib.hpp>
 #include <ql/math/matrix.hpp>
+#include "Volatility.hpp"
 /*
 Permet de construire les courbes de taux
 Utilisation des instruments RateHelper
@@ -696,3 +700,4 @@ std::vector<Rate> Calcul_Fwd(std::vector <Date > date2)
 //		std::cout << mon_vecteur[i] << std::endl;
 //	}
 //}
+#endif

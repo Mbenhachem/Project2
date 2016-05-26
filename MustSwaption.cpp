@@ -5,7 +5,6 @@
 
 
 
-
 MustSwaption::MustSwaption(ComponentPrincipalMust principal, ComponentCashFlowMust fixedLeg, ComponentCashFlowMust floatingLeg, ComponentIndexMust index, DateMust maturity, DateMust tenor, RateMust fixed_Rate)
 :principal(principal), fixed_LegFlow(fixedLeg), floating_LegFlow(floatingLeg), index(index), maturity(maturity), tenor(tenor), fixed_Rate(fixed_Rate)
 {

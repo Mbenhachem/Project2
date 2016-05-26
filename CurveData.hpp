@@ -1,3 +1,5 @@
+#ifndef CURVEDATA_H
+#define CURVEDATA_H
 /*
 Permet de construire les courbes de taux
 Utilisation des instruments RateHelper
@@ -599,4 +601,4 @@ boost::shared_ptr<YieldTermStructure> boostrapCurve(const CurveData &cd)
 
 
 }
-
+#endif

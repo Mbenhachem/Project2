@@ -8,6 +8,10 @@
 using namespace QuantLib;
 
 
+//****
+using namespace QuantLib;
+
+
 
 
 class MustCapFloor : public MustProduct

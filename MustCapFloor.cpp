@@ -81,11 +81,18 @@ double MustCapFloor::Price(Handle<QuantLib::YieldTermStructure> discountingTermS
 	////capletsVolatilies = buildOptionletCurveVol(cVol);
 
 	//boost::shared_ptr<BlackCapFloorEngine> strippedVolEngine(new BlackCapFloorEngine(discountingTermStructure, capletsVolatilies));
-	boost::shared_ptr<BlackCapFloorEngine> strippedVolEngine(new BlackCapFloorEngine(discountingTermStructure, vol));
-	CapFloor->setPricingEngine(strippedVolEngine);
+	if (pricingEngineName == "LMM") return PriceNada_Imane();
+	else{
+		boost::shared_ptr<PricingEngine> strippedVolEngine = SetPricingEngine(pricingEngineName, discountingTermStructure, forwardingTermStructure);
+		CapFloor->setPricingEngine(strippedVolEngine);
 
-	return CapFloor->NPV();
+		return CapFloor->NPV();
+	}
 }
+
+
+
+
 double MustCapFloor::PriceNada_Imane(){
 
 #pragma region Vetor of Dates

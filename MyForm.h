@@ -636,6 +636,9 @@ namespace Project2
 								pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
 							IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
 
+							//-----------------Model------------------
+							string modelName = portefeuille->AllTrades[iTrade]->modele;
+
 							//*******************************
 
 							MustPricer* mustPricer = new MustPricer();
@@ -647,9 +650,9 @@ namespace Project2
 							
 
 							//************* Appel des méthodes de pricing
-							npv = mustPricer->Price(must_Swap, 1);
-							npvfixleg = mustPricer->Price(must_Swap, 2);
-							npvfloatleg = mustPricer->Price(must_Swap, 3);
+							npv = mustPricer->Price(must_Swap, 1, modelName);
+							npvfixleg = mustPricer->Price(must_Swap, 2, modelName);
+							npvfloatleg = mustPricer->Price(must_Swap, 3, modelName);
 
 							// limiter les NPV à 2 chiffres après la virgule
 							DeuxChiff(&npv);
@@ -709,6 +712,10 @@ namespace Project2
 								pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
 							IndexObj->SetMatrixSpread(settlementDate, maturity, IndexObj->spreads);
 
+
+							//-----------------Model------------------
+							string modelName = portefeuille->AllTrades[iTrade]->modele;
+
 							//*******************************
 
 							MustPricer* mustPricer = new MustPricer();
@@ -718,7 +725,7 @@ namespace Project2
 							MustCapFloor* must_Cap = new  MustCapFloor(*nominalObj, *floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
 
 							//************* Appel des méthodes de pricing
-							npv = mustPricer->Price(must_Cap, 1);
+							npv = mustPricer->Price(must_Cap, 1, modelName);
 
 							// limiter les NPV à 2 chiffres après la virgule
 							DeuxChiff(&npv);

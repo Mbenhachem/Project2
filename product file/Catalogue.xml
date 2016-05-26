@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <BODY>
     <productList>
-        <prod name="CAP" type="MYSWAP" activate="True" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
+        <prod name="CAP" type="MYSWAP" activate="False" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
         <prod name="MYCAPFLOOR" type="MYCAPFLOOR" activate="True" modele="EFFICIENCYLMM">MYCAPFLOOR.xml</prod>
         <prod name="SWAP2" type="MYSWAP" activate="True" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
-        <prod name="MYSWAP" type="MYSWAP" activate="True" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
+        <prod name="MYSWAP" type="MYSWAP" activate="False" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
+        <prod name="hghg" type="SWAPTION" activate="False" modele="Black">SWAPTION.xml</prod>
     </productList>
     <typeList>
         <prod type="MYSWAP">MYSWAP.xml</prod>

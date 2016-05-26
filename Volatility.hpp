@@ -1,3 +1,6 @@
+#ifndef VOLATILITY_H
+#define VOLATILITY_H
+
 #include <boost/format.hpp>
 
 #include <ql/quantlib.hpp>
@@ -273,7 +276,7 @@ Handle<OptionletVolatilityStructure> buildFlatCurveVol(CapFloorVolatility &cv)
 	capletFlatVolCurve->enableExtrapolation();
 	return capletFlatVolCurve;
 }
-
+#endif
 
 
 

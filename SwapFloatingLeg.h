@@ -18,7 +18,7 @@ public:
 	SwapFloatingLeg(boost::shared_ptr<IborIndex> floating_index, DayCounter floatingLegDayCounter, Frequency floatingLegFrequency);
 	/*SwapFloatingLeg(boost::shared_ptr<IborIndex> Floating_index, DayCounter FloatingLegDayCounter, Frequency FloatingLegFrequency, Spread Spread);
 	SwapFloatingLeg(boost::shared_ptr<IborIndex> Floating_index, DayCounter FloatingLegDayCounter, Frequency FloatingLegFrequency, std::vector<Spread>  Spreads);
-*/
+	*/
 #pragma region"Get & Set Fonctions"
 	void setfloating_index(boost::shared_ptr<IborIndex> floating_index);
 	void setfloatingLegDayCounter(DayCounter floatingLegDayCounter);
@@ -57,8 +57,8 @@ public:
 			.withFixingDays(2)
 			.withSpreads(vectorAdaptFreq(Spreads, settlementDate, maturity, floatingLegFrequency));
 	}
-	
-	
+
+
 	std::vector<Real> vectorAdaptFreq(std::vector<std::tuple<Date, Date, Real>> matrixRate, Date settlementDate, Date maturity, Frequency fixedLegFrequency)
 	{
 		std::vector<Real> fixedRateFreq;

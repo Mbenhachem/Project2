@@ -5,7 +5,6 @@
 #include <ql/time/daycounters/actual360.hpp>
 #include "SwapFixedLeg.h"
 #include <ql/quantlib.hpp>
-
 using namespace QuantLib;
 
 

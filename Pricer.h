@@ -9,7 +9,7 @@ class MustPricer
 {
 
 public:
-	double Price(MustProduct* must_Product, int i)
+	double Price(MustProduct* must_Product, int i,string modelName)
 	{
 
 		//MustCurve
@@ -26,7 +26,7 @@ public:
 		discountingTermStructure.linkTo(ocurve);
 
 
-		return must_Product->Price(discountingTermStructure, forecastingTermStructure, i,"blackfloor");
+		return must_Product->Price(discountingTermStructure, forecastingTermStructure, i, modelName);
 		//return must_Product->PriceNada_Imane(discountingTermStructure, forecastingTermStructure, i);
 
 		//PriceNada_Imane

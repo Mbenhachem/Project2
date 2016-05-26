@@ -2,14 +2,9 @@
 <BODY>
     <product name="MYSWAP">
         <mapping>
-		
-		
-			<comp type="COMPONENT_OPTION">
+            <comp type="COMPONENT_OPTION">
                 <property name="OptionQuantLib">Option</property>
             </comp>
-			
-			
-			
             <comp type="COMPONENT_CASHFLOW">
                 <property name="FixedLegQuantLib">FixedLeg</property>
             </comp>
@@ -26,9 +21,9 @@
                 <property name="startDateQuantLib">MStartDate</property>
             </comp>
             <comp type="FULLDATE">
-                <property name="endDateQuantLib">MEndDate</property>
+                <property name="endDateQuantLib">MEndDate1</property>
             </comp>
-			<comp type="FULLDATE">
+            <comp type="FULLDATE">
                 <property name="startDateOption">MStartDate</property>
             </comp>
             <comp type="FULLDATE">

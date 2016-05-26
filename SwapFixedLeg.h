@@ -7,7 +7,6 @@
 #include <ql/time/schedule.hpp>
 #include <ql/quantlib.hpp>
 
-
 using namespace QuantLib;
 
 

@@ -1,3 +1,6 @@
+#ifndef LMM_H
+#define LMM_H
+
 #include <boost/format.hpp>
 #include <conio.h> 
 #include <stdio.h> 
@@ -701,3 +704,5 @@ std::vector <Date > vectorDates(Date startDate, Date endDate, Frequency frequenc
 
 	return result;
 }
+
+#endif
