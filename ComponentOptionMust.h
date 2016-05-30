@@ -20,6 +20,7 @@ public:
 		{
 			TiXmlHandle docMUSTHandle(&doc);
 			TiXmlElement *Component;
+			TiXmlElement *elem;
 
 			TiXmlElement *Trade = docMUSTHandle.FirstChild("BODY").FirstChild("TRADELIST").FirstChild("MUST_TR").ToElement();
 
@@ -38,15 +39,34 @@ public:
 							{
 								payOrSell = Component->FirstChild("PORS")->ToElement()->GetText();
 								freqString = Component->FirstChild("EXPIRY_SCHED")->FirstChild("BASIC_SCHED")->FirstChild("SCHED_DEF")->FirstChild("FREQ")->ToElement()->GetText();
-								firstExpiry = Component->FirstChild("EXPIRY_SCHED")->FirstChild("BASIC_SCHED")->FirstChild("START_DATE")->FirstChild("DATE_FORMULA")->FirstChild("TARGET")->FirstChild("ATTRIBUTE")->ToElement()->GetText();
-								lastExpiry = Component->FirstChild("EXPIRY_SCHED")->FirstChild("BASIC_SCHED")->FirstChild("END_DATE")->FirstChild("DATE_FORMULA")->FirstChild("TARGET")->FirstChild("ATTRIBUTE")->ToElement()->GetText();
-
-
+								//firstExpiry = Component->FirstChild("EXPIRY_SCHED")->FirstChild("BASIC_SCHED")->FirstChild("START_DATE")->FirstChild("DATE_FORMULA")->FirstChild("TARGET")->FirstChild("ATTRIBUTE")->ToElement()->GetText();
+								//lastExpiry = Component->FirstChild("EXPIRY_SCHED")->FirstChild("BASIC_SCHED")->FirstChild("END_DATE")->FirstChild("DATE_FORMULA")->FirstChild("TARGET")->FirstChild("ATTRIBUTE")->ToElement()->GetText();
 
 							}
 						}
 						Component = Component->NextSiblingElement();
 					}
+
+
+					//****** recherche du type de l'option
+
+					elem = Trade->FirstChild("MPTradeData")->FirstChild("MPTRDATA")->FirstChild("MPTrDataXML")->FirstChild("MPTRDATAXML")->FirstChild("STRUCTURED_INSTRUMENT")->
+						FirstChild("VARIABLE_LIST")->FirstChild("VARIABLE")->ToElement();
+
+					while (elem)
+					{
+						if (strcmp(elem->Value(), "VARIABLE") == 0)
+						{
+
+							if (strcmp(elem->FirstChild("NAME")->ToElement()->GetText(), "OptionStyle") == 0)
+							{
+								typeOption = elem->FirstChild("FORMULA")->FirstChild("FORMULA_STRING")->ToElement()->GetText();
+							}
+						}
+						elem = elem->NextSiblingElement();
+					}
+
+
 				}
 				Trade = Trade->NextSiblingElement();
 			}
@@ -63,9 +83,9 @@ public:
 	string typeOption;
 	string payOrSell;
 	string freqString;
-	string firstExpiry;
-	string lastExpiry;
-	
+	//string firstExpiry;
+	//string lastExpiry;
+
 
 };
 

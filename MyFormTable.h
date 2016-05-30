@@ -87,6 +87,12 @@ namespace Project2 {
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^  Column6;
 
 
+
+
+
+
+
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -309,8 +315,8 @@ namespace Project2 {
 			this->Column6->HeaderText = L"Objet QuantLib";
 			this->Column6->Items->AddRange(gcnew cli::array< System::Object^  >(11) {
 				L"FixedLegQuantLib", L"FloatingLegQuantLib", L"OptionQuantLib",
-					L"IndexQuantLib", L"NominalQuantLib", L"startDateQuantLib", L"endDateQuantLib", L"startDateOption", L"endDateOption", L"FixedRateQuantLib",
-					L"StrikeQuantLib"
+					L"IndexQuantLib", L"NominalQuantLib", L"startDateQuantLib", L"endDateQuantLib", L"maturityOptionQuantLib", L"FixedRateQuantLib",
+					L"StrikeQuantLib", L"CapOrFloor"
 			});
 			this->Column6->Name = L"Column6";
 			this->Column6->Resizable = System::Windows::Forms::DataGridViewTriState::True;
