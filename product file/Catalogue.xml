@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <BODY>
     <productList>
-        <prod name="CAP" type="MYSWAP" activate="False" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
-        <prod name="MYCAPFLOOR" type="MYCAPFLOOR" activate="True" modele="EFFICIENCYLMM">MYCAPFLOOR.xml</prod>
-        <prod name="SWAP2" type="MYSWAP" activate="True" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
-        <prod name="MYSWAP" type="MYSWAP" activate="False" modele="EFFICIENCYLMM">MYSWAP.xml</prod>
-        <prod name="hghg" type="SWAPTION" activate="False" modele="Black">SWAPTION.xml</prod>
+        <prod name="CAP" type="MYSWAP" activate="True" modele="EFFICIENCY_LMM">MYSWAP.xml</prod>
+        <prod name="MYCAPFLOOR" type="MYCAPFLOOR" activate="True" modele="EFFICIENCY_LMM">MYCAPFLOOR.xml</prod>
+        <prod name="SWAP2" type="MYSWAP" activate="True" modele="EFFICIENCY_LMM">MYSWAP.xml</prod>
+        <prod name="MYSWAP" type="MYSWAP" activate="True" modele="EFFICIENCY_LMM">MYSWAP.xml</prod>
+        <prod name="KaoutarSWAP" type="MYSWAP" activate="True" modele="Black">MYSWAP.xml</prod>
+        <prod name="EFFSWAPTION" type="SWAPTION" activate="True" modele="Black">SWAPTION.xml</prod>
+        <prod name="EFFICIENCY CAP FLOOR" type="MYCAPFLOOR" activate="True" modele="Black">MYCAPFLOOR.xml</prod>
     </productList>
     <typeList>
         <prod type="MYSWAP">MYSWAP.xml</prod>
@@ -14,7 +16,8 @@
         <prod type="SWAPTION">SWAPTION.xml</prod>
     </typeList>
     <modelList>
-        <model name="EFFICIENCYLMM" />
-        <model name="Black" />
+        <model name="EFFICIENCY_LMM" />
+        <model name="LMM_QuantLib" />
+		<model name="Black" />
     </modelList>
 </BODY>

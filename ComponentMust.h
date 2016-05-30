@@ -216,6 +216,15 @@ public:
 	}
 
 
+
+	void SuppDoubleQuotes(string* valeurInit)
+	{
+		valeurInit->erase(0, 1);
+		valeurInit->erase(valeurInit->size() - 1, 1);
+	}
+
+
+
 };
 
 #endif

@@ -2,23 +2,27 @@
 <BODY>
     <product name="MYCAPFLOOR">
         <mapping>
+		    <comp type="ENUM">
+                <property name="CapOrFloor">isCap</property>
+            </comp>
+			
             <comp type="COMPONENT_CASHFLOW">
                 <property name="FloatingLegQuantLib">PayofLeg</property>
             </comp>
             <comp type="COMPONENT_INDEX">
-                <property name="IndexQuantLib">IR</property>
+                <property name="IndexQuantLib">I01</property>
             </comp>
             <comp type="COMPONENT_PRINCIPAL">
                 <property name="NominalQuantLib">Principal</property>
             </comp>
             <comp type="FULLDATE">
-                <property name="startDateQuantLib">T_START</property>
+                <property name="startDateQuantLib">T_Start</property>
             </comp>
             <comp type="FULLDATE">
-                <property name="endDateQuantLib">T_END</property>
+                <property name="endDateQuantLib">T_End</property>
             </comp>
             <comp type="RATE">
-                <property name="StrikeQuantLib">StrikeRate</property>
+                <property name="StrikeQuantLib">strikeRate</property>
             </comp>
         </mapping>
     </product>

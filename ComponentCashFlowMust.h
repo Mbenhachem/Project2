@@ -5,7 +5,6 @@
 #include "tinyxml.h"
 #include <string>
 
-
 using namespace std;
 using namespace QuantLib;
 
@@ -69,7 +68,7 @@ public:
 	string CashFlowBasis;
 	Frequency freqQ; // type QuantLib
 	DayCounter basisQ; // type QuantLib
-
+	
 
 
 };

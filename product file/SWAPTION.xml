@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <BODY>
-    <product name="MYSWAP">
+    <product name="SWAPTION">
         <mapping>
             <comp type="COMPONENT_OPTION">
                 <property name="OptionQuantLib">Option</property>
@@ -12,25 +12,22 @@
                 <property name="FloatingLegQuantLib">FloatingLeg</property>
             </comp>
             <comp type="COMPONENT_INDEX">
-                <property name="IndexQuantLib">IndexRate</property>
+                <property name="IndexQuantLib">IndexEURIB</property>
             </comp>
             <comp type="COMPONENT_PRINCIPAL">
-                <property name="NominalQuantLib">Notional</property>
-            </comp>
-            <comp type="FULLDATE">
-                <property name="startDateQuantLib">MStartDate</property>
-            </comp>
-            <comp type="FULLDATE">
-                <property name="endDateQuantLib">MEndDate1</property>
-            </comp>
-            <comp type="FULLDATE">
-                <property name="startDateOption">MStartDate</property>
-            </comp>
-            <comp type="FULLDATE">
-                <property name="endDateOption">MEndDate</property>
+                <property name="NominalQuantLib">Principal</property>
             </comp>
             <comp type="RATE">
                 <property name="FixedRateQuantLib">FixedRate</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="startDateQuantLib">FirstOptionDate</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="maturityOptionQuantLib">MaturityDate</property>
+            </comp>
+            <comp type="FULLDATE">
+                <property name="endDateQuantLib">End_Date</property>
             </comp>
         </mapping>
     </product>
