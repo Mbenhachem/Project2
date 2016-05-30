@@ -687,7 +687,7 @@ namespace Project2
 						{
 							Mapping* tab_mapp = new Mapping("MYCAPFLOOR");
 							//Cap Or Floor
-
+							// ;)
 							string capOrFloor = tab_mapp->search_mapping("CapOrFloor");
 							EnumMust* typeCapFloor = new EnumMust(pathC, capOrFloor, portefeuille->AllTrades[iTrade]->tradeID);
 							string isCapOfFloor = typeCapFloor->valeur;
