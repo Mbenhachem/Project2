@@ -1,14 +1,48 @@
-﻿Build started 30/05/2016 14:14:30.
-     1>Project "C:\Users\IMAD\Documents\Visual Studio 2013\Projects\Project2\Project2\Project2.vcxproj" on node 2 (Build target(s)).
+﻿Build started 30/05/2016 16:51:17.
+     1>Project "C:\Users\Marouane\Desktop\Project2 - Copie\Project2\Project2.vcxproj" on node 2 (Rebuild target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Projet Interface.vcxproj).  This can lead to incorrect clean and rebuild behavior.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _SCL_SECURE_NO_DEPRECATE /D _CRT_SECURE_NO_DEPRECATE /D "<different options>" /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MyForm.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\\" /AI"C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral" /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\\" /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _SCL_SECURE_NO_DEPRECATE /D _CRT_SECURE_NO_DEPRECATE /D "<different options>" /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /analyze- /errorReport:prompt /clr:nostdlib MustCapFloor.cpp MustProduct.cpp MustSwaption.cpp MustVanilleSwap.cpp MyForm.cpp SwapFixedLeg.cpp SwapFloatingLeg.cpp tinystr.cpp tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp
+         MustCapFloor.cpp
+     1>c:\users\marouane\desktop\project2 - copie\project2\CurveDataMod.hpp(566): warning C4244: 'argument' : conversion from 'QuantLib::Rate' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(102): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(145): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(153): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(171): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(188): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(214): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(272): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(284): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(304): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(306): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(393): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(407): warning C4244: 'initializing' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(421): warning C4244: 'initializing' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(490): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(502): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(574): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>c:\users\marouane\desktop\project2 - copie\project2\LMM.hpp(642): warning C4244: '=' : conversion from 'QuantLib::Real' to 'float', possible loss of data
+     1>MustCapFloor.cpp(170): warning C4305: 'argument' : truncation from 'double' to 'float'
+     1>MustCapFloor.cpp(172): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>MustCapFloor.cpp(172): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         MustProduct.cpp
+         MustSwaption.cpp
+         MustVanilleSwap.cpp
          MyForm.cpp
-     1>c:\users\imad\documents\visual studio 2013\projects\project2\project2\Catalogue.h(184): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\imad\documents\visual studio 2013\projects\project2\project2\Pricer.h(209): warning C4102: 'std' : unreferenced label
-     1>c:\users\imad\documents\visual studio 2013\projects\project2\project2\EnumMust.h(23): warning C4101: 'ComponentMatrix' : unreferenced local variable
+     1>c:\users\marouane\desktop\project2 - copie\project2\Catalogue.h(184): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\marouane\desktop\project2 - copie\project2\Pricer.h(209): warning C4102: 'std' : unreferenced label
+     1>c:\users\marouane\desktop\project2 - copie\project2\EnumMust.h(29): warning C4101: 'ComponentMatrix' : unreferenced local variable
+         SwapFixedLeg.cpp
+         SwapFloatingLeg.cpp
+         tinystr.cpp
+         tinyxml.cpp
+         tinyxmlerror.cpp
+         tinyxmlparser.cpp
+         Generating Code...
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /clr /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _SCL_SECURE_NO_DEPRECATE /D _CRT_SECURE_NO_DEPRECATE /D "<different options>" /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /TP /analyze- /errorReport:prompt "C:\Users\Marouane\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cpp"
+         .NETFramework,Version=v4.5.AssemblyAttributes.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\IMAD\Documents\Visual Studio 2013\Projects\Project2\Debug\Project2.exe" /INCREMENTAL /NOLOGO /ASSEMBLYRESOURCE:Debug\Project2.GrecsForm.resources /ASSEMBLYRESOURCE:Debug\Project2.MyForm.resources /ASSEMBLYRESOURCE:Debug\Project2.MyFormTable.resources /ASSEMBLYRESOURCE:Debug\Project2.ProductChoice.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\IMAD\Documents\Visual Studio 2013\Projects\Project2\Debug\Project2.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\MustCapFloor.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Marouane\Desktop\Project2 - Copie\Debug\Project2.exe" /INCREMENTAL /NOLOGO /ASSEMBLYRESOURCE:Debug\Project2.GrecsForm.resources /ASSEMBLYRESOURCE:Debug\Project2.MyForm.resources /ASSEMBLYRESOURCE:Debug\Project2.MyFormTable.resources /ASSEMBLYRESOURCE:Debug\Project2.ProductChoice.resources /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Marouane\Desktop\Project2 - Copie\Debug\Project2.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\MustCapFloor.obj
          Debug\MustProduct.obj
          Debug\MustSwaption.obj
          Debug\MustVanilleSwap.obj
@@ -21,9 +55,9 @@
          Debug\tinyxmlparser.obj
          "Debug\.NETFramework,Version=v4.5.AssemblyAttributes.obj"
      1>QuantLib-vc120-mt-gd.lib(timegrid.obj) : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
-         Project2.vcxproj -> C:\Users\IMAD\Documents\Visual Studio 2013\Projects\Project2\Debug\Project2.exe
-     1>Done Building Project "C:\Users\IMAD\Documents\Visual Studio 2013\Projects\Project2\Project2\Project2.vcxproj" (Build target(s)).
+         Project2.vcxproj -> C:\Users\Marouane\Desktop\Project2 - Copie\Debug\Project2.exe
+     1>Done Building Project "C:\Users\Marouane\Desktop\Project2 - Copie\Project2\Project2.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:43.20
+Time Elapsed 00:05:01.42
