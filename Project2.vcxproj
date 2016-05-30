@@ -127,6 +127,7 @@
     <ClInclude Include="ProductChoice.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="SwaptionVolatility.hpp" />
     <ClInclude Include="TradeMust.h" />
     <ClInclude Include="RateMust.h" />
     <ClInclude Include="SwapFixedLeg.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="tinystr.h" />
     <ClInclude Include="tinyxml.h" />
     <ClInclude Include="Volatility.hpp" />
+    <ClInclude Include="VolStructureUtilities.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GrecsForm.resx">

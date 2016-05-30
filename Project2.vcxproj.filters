@@ -21,6 +21,15 @@
     <Filter Include="Source Files\Mapping">
       <UniqueIdentifier>{e3b908f4-d490-40e2-8919-8c7ea0e29c24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Pricing\MustProduct">
+      <UniqueIdentifier>{d3e49577-6f25-47fd-b0fb-8414bd99286b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pricing\MarketData&amp;Volatility">
+      <UniqueIdentifier>{4b45890a-daf2-4c3e-9234-66cabac3710d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pricing\Legs">
+      <UniqueIdentifier>{730a0b31-484a-4a57-8dd2-08dd30932b58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp">
@@ -38,23 +47,23 @@
     <ClCompile Include="tinyxmlerror.cpp">
       <Filter>Source Files\tinyxml</Filter>
     </ClCompile>
-    <ClCompile Include="MustProduct.cpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapFloatingLeg.cpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClCompile>
-    <ClCompile Include="SwapFixedLeg.cpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClCompile>
-    <ClCompile Include="MustVanilleSwap.cpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClCompile>
     <ClCompile Include="MustCapFloor.cpp">
-      <Filter>Source Files\Pricing</Filter>
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="MustProduct.cpp">
+      <Filter>Source Files\Pricing\MustProduct</Filter>
     </ClCompile>
     <ClCompile Include="MustSwaption.cpp">
-      <Filter>Source Files\Pricing</Filter>
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="MustVanilleSwap.cpp">
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapFloatingLeg.cpp">
+      <Filter>Source Files\Pricing\Legs</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapFixedLeg.cpp">
+      <Filter>Source Files\Pricing\Legs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,18 +97,6 @@
     <ClInclude Include="RateMust.h">
       <Filter>Source Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="CurveData.hpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapFixedLeg.h">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
-    <ClInclude Include="SwapFloatingLeg.h">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
-    <ClInclude Include="MustProduct.h">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
     <ClInclude Include="TradeMust.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -127,23 +124,41 @@
     <ClInclude Include="ProductChoice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MustCapFloor.h">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
-    <ClInclude Include="MustVanilleSwap.h">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
-    <ClInclude Include="Volatility.hpp">
-      <Filter>Source Files\Pricing</Filter>
-    </ClInclude>
     <ClInclude Include="LMM.hpp">
       <Filter>Source Files\Pricing</Filter>
     </ClInclude>
-    <ClInclude Include="CurveDataMod.hpp">
-      <Filter>Source Files\Pricing</Filter>
+    <ClInclude Include="MustCapFloor.h">
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClInclude>
+    <ClInclude Include="MustProduct.h">
+      <Filter>Source Files\Pricing\MustProduct</Filter>
     </ClInclude>
     <ClInclude Include="MustSwaption.h">
-      <Filter>Source Files\Pricing</Filter>
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClInclude>
+    <ClInclude Include="MustVanilleSwap.h">
+      <Filter>Source Files\Pricing\MustProduct</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveData.hpp">
+      <Filter>Source Files\Pricing\MarketData&amp;Volatility</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveDataMod.hpp">
+      <Filter>Source Files\Pricing\MarketData&amp;Volatility</Filter>
+    </ClInclude>
+    <ClInclude Include="VolStructureUtilities.h">
+      <Filter>Source Files\Pricing\MarketData&amp;Volatility</Filter>
+    </ClInclude>
+    <ClInclude Include="Volatility.hpp">
+      <Filter>Source Files\Pricing\MarketData&amp;Volatility</Filter>
+    </ClInclude>
+    <ClInclude Include="SwaptionVolatility.hpp">
+      <Filter>Source Files\Pricing\MarketData&amp;Volatility</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapFloatingLeg.h">
+      <Filter>Source Files\Pricing\Legs</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapFixedLeg.h">
+      <Filter>Source Files\Pricing\Legs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
