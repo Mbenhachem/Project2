@@ -1,10 +1,7 @@
-#pragma once
-#include "ComponentPrincipalMust.h"
-#include "ComponentCashFlowMust.h"
-#include"ComponentIndexMust.h"
-#include"DateMust.h"
-#include"RateMust.h"
+#pragma onceVOLATILITY.h
 #include"MustProduct.h"
+#include <ql/quantlib.hpp>
+
 using namespace QuantLib;
 
 

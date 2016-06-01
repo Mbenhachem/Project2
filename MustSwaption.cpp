@@ -1,8 +1,6 @@
 #include <ql/quantlib.hpp>
-#include "SwapFixedLeg.h"
-#include "SwapFloatingLeg.h"
 #include "MustSwaption.h"
-#include "SwaptionVolatility.hpp"
+
 
 
 MustSwaption::MustSwaption(ComponentPrincipalMust principal, ComponentCashFlowMust fixedLeg, ComponentCashFlowMust floatingLeg, ComponentIndexMust index, DateMust maturity, DateMust tenor, RateMust fixed_Rate)
@@ -11,7 +9,7 @@ MustSwaption::MustSwaption(ComponentPrincipalMust principal, ComponentCashFlowMu
 
 }
 boost::shared_ptr< PricingEngine >  MustSwaption::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure){
-	if (pricingEngineName == "LMMModèle"){
+	if (pricingEngineName == "LMM_QuantLib"){
 		//-----------------------------------LMM Engine -----------------------------------------------------
 		boost::shared_ptr<IborIndex> index(new Euribor6M(discountingTermStructure));
 		index->fixingCalendar().adjust(Date(6, October, 2014));
@@ -81,15 +79,19 @@ double MustSwaption::Price(Handle<QuantLib::YieldTermStructure> discountingTermS
 	Settlement::Type settlementType = Settlement::Cash;
 	//Swap swap(fixedLeg, floatingLeg);
 	boost::shared_ptr<VanillaSwap> swap = constructVanillaSwap(myIndex);
+	boost::shared_ptr<PricingEngine> swapEngine(new DiscountingSwapEngine(discountingTermStructure));
 
+	swap->setPricingEngine(swapEngine);
 	
 	boost::shared_ptr<Swaption> swaption(new Swaption(swap,
 		boost::shared_ptr<Exercise>(
 		new EuropeanExercise(maturity.dateQ)),
 		settlementType));
 	swaption->setPricingEngine(SetPricingEngine(pricingEngineName, discountingTermStructure, forwardingTermStructure));
+	Real b = swaption->NPV();
 
-	return swaption->NPV();
+	Real a = swap->NPV();
+	return b;
 }
 
 

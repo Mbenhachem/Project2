@@ -1,8 +1,7 @@
 
 using namespace QuantLib;
 #include "CurveData.hpp"
-#include "SwapFixedLeg.h"
-#include "SwapFloatingLeg.h"
+#include "MustSwaption.h"
 //#include "Volatility.hpp"
 
 class MustPricer
@@ -44,7 +43,7 @@ public:
 	
 
 		void Test(){
-		Real nominal = 1000000;
+		double nominal = 1000000;
 		Date settlementDate(18, January, 2016);
 		Date maturity(20, January, 2020);
 		Date startDate(20, January, 2016);
@@ -53,7 +52,7 @@ public:
 		Frequency fixedLegFrequency = Semiannual;
 		Frequency floatingLegFrequency = Semiannual;
 		std::vector<Real> fixedRate; 
-		fixedRate.push_back(0.0319378);
+		fixedRate.push_back(0.01);
 		
 		DayCounter floatingLegDayCounter = Actual360();
 		DayCounter fixedLegDayCounter = Actual365Fixed();
@@ -128,6 +127,8 @@ public:
 
 		boost::shared_ptr<IborIndex> euribor(new IborIndex("Euribor", 6 * Months, 2, EURCurrency(), TARGET(), ModifiedFollowing, 1, Actual360(), forecastingTermStructure));
 
+
+#pragma region"TestForSwap"
 		//euribor->addFixing(euribor->fixingDate(settlementDate), 0.01, true);
 		//SwapType
 		//VanillaSwap::Type swapType = VanillaSwap::Payer;
@@ -176,11 +177,9 @@ public:
 		double NPV2 = must_Swap2.NPV();
 		double FixedLEgNPV = must_Swap.legNPV(0);
 		double FloatingLegNPV = must_Swap.legNPV(1);
-
-
-	/*	HullWhite model(discountingTermStructure, 0.1, 0.01);
+		/*	HullWhite model(discountingTermStructure, 0.1, 0.01);
 		Time mat = fixedLegDayCounter.yearFraction(settlementDate,
-			maturity);
+		maturity);
 		Real disc = model.discount(mat);
 		Real disc2 = discountingTermStructure->discount(mat);*/
 
@@ -189,11 +188,10 @@ public:
 		Real *a = NormalLaw->operator();
 		Real *b = NormalLaw->operator();*/
 
-		
-		
 
+#pragma endregion
 
-
+#pragma region"Test For CapFloor"
 
 		////////////////////////TEst Pour CapFLoor ///////////////////////////////////////:
 
@@ -238,11 +236,39 @@ public:
 		CapFloor->setPricingEngine(strippedVolEngine);
 
 		double capNPV = CapFloor->NPV();
+#pragma endregion
+
+		VanillaSwap::Type swapType = VanillaSwap::Payer;
+		Settlement::Type settlementType = Settlement::Cash;
+
+
+		//Real fixedSpread = fixedRatesFreq(index.matrixSpread, maturity.dateQ, tenor.dateQ, floating_LegFlow.freqQ)[0];
+		boost::shared_ptr<VanillaSwap> vanillaSwap(
+			new VanillaSwap(swapType, nominal,
+			fixed_Leg->fixedSchedule(startDate, maturity), fixedRate[0], fixedLegDayCounter,
+			floating_leg->floatSchedule(startDate, maturity), euribor, 0.0,
+			floatingLegDayCounter));
+		vanillaSwap->setPricingEngine(swapEngine);
+		Real swapnpv = vanillaSwap->NPV();
+		boost::shared_ptr<Swaption> swaption(new Swaption(vanillaSwap,
+			boost::shared_ptr<Exercise>(
+			new EuropeanExercise(startDate)),
+			settlementType));
+
+		SwaptionVolatility vol2;
+		vol2.termStructure.linkTo(discountingTermStructure.currentLink());
+		Handle<SwaptionVolatilityStructure> volatility = vol2.atmVolMatrix;
+	 boost::shared_ptr<PricingEngine> SwaptionEngine(
+			new BlackSwaptionEngine(discountingTermStructure, volatility));
+	 swaption->setPricingEngine(SwaptionEngine);
+
+	 Real SwaptionNPV = swaption->NPV();
+	
+#pragma region"Test For Swaption"
 
 
 #pragma endregion
-
-
+#pragma endregion
 
 	}
 

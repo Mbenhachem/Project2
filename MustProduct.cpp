@@ -1,6 +1,3 @@
-#include <ql/quantlib.hpp>
-#include "SwapFixedLeg.h"
-#include "SwapFloatingLeg.h"
 #include "MustProduct.h"
 
 

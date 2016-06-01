@@ -1,10 +1,8 @@
 #pragma once
-#include "ComponentPrincipalMust.h"
-#include "ComponentCashFlowMust.h"
-#include"ComponentIndexMust.h"
-#include"DateMust.h"
-#include"RateMust.h"
 #include"MustProduct.h"
+
+//#include "CurveDataMod.hpp"
+#include <ql/quantlib.hpp>
 using namespace QuantLib;
 
 
@@ -26,7 +24,7 @@ public:
 
 
 
-	double PriceNada_Imane();
+	//double PriceNada_Imane();
 
 
 #pragma region"CapFloor s Parametres"

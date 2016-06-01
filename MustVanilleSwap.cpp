@@ -1,7 +1,4 @@
-#include <ql/quantlib.hpp>
-#include "SwapFixedLeg.h"
-#include "SwapFloatingLeg.h"
-#include "MustProduct.h"
+
 #include "MustVanilleSwap.h"
 
 using namespace std;
@@ -40,6 +37,7 @@ double MustVanilleSwap::Price(Handle<QuantLib::YieldTermStructure> discountingTe
 
 
 	if (index.spreads.size()<1) //condition to check the Sread
+	//if (index.spreads2 != NULL)
 	{
 		fixedLeg = fixed_Leg->constructLeg(startDate.dateQ, endDate.dateQ, principal.nominal);
 		floatingLeg = floating_leg->ConstructLeg(startDate.dateQ, endDate.dateQ, principal.nominal);

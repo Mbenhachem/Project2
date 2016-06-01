@@ -4,6 +4,8 @@
 #include "ComponentMust.h"
 #include "tinyxml.h"
 #include <string>
+#include "ComponentIndexMust.h"
+#include "RateMust.h"
 
 using namespace std;
 using namespace QuantLib;
@@ -60,7 +62,7 @@ public:
 
 		}
 	}
-
+	//ComponentCashFlowMust(boost::shared_ptr<ComponentIndexMust> Index, boost::shared_ptr<RateMust> FixedRates) :index(Index), fixedRates(FixedRates){}
 	//attributs
 
 	string CashFlowCcy;
@@ -68,7 +70,9 @@ public:
 	string CashFlowBasis;
 	Frequency freqQ; // type QuantLib
 	DayCounter basisQ; // type QuantLib
-	
+
+	//boost::shared_ptr<ComponentIndexMust> index;
+	//boost::shared_ptr<RateMust> fixedRates;
 
 
 };

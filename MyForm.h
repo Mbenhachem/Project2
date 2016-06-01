@@ -78,16 +78,12 @@ namespace QuantLib
 #include <iostream>
 #include "MustProduct.h"
 #include "Pricer.h"
-#include "ComponentIndexMust.h"
-#include "ComponentPrincipalMust.h"
-#include "ComponentCashFlowMust.h"
 #include "ComponentOptionMust.h"
-#include "DateMust.h"
-#include "RateMust.h"
 #include "TradeMust.h"
 #include "Portefeuille.h"
 #include "MustVanilleSwap.h"
 #include "MustCapFloor.h"
+#include "MustSwaption.h"
 #include "EnumMust.h"
 
 
@@ -658,7 +654,8 @@ namespace Project2
 							
 
 							//************* Appel des méthodes de pricing
-							npv = mustPricer->Price(must_Swap, 1,"Discount");
+							
+							npv = mustPricer->Price(must_Swap, 1, portefeuille->AllTrades[iTrade]->modele);
 							npvfixleg = mustPricer->Price(must_Swap, 2, "Discount");
 							npvfloatleg = mustPricer->Price(must_Swap, 3, "Discount");
 
@@ -744,7 +741,7 @@ namespace Project2
 							MustCapFloor* must_Cap = new  MustCapFloor(*nominalObj, *floatingLegObj, *IndexObj, *startDateObj, *endDateObj, *fixedRateObj);
 
 							//************* Appel des méthodes de pricing
-							npv = mustPricer->Price(must_Cap, 1,"blackfloor");
+							npv = mustPricer->Price(must_Cap, 1, portefeuille->AllTrades[iTrade]->modele);
 
 							// limiter les NPV à 2 chiffres après la virgule
 							DeuxChiff(&npv);
@@ -784,16 +781,16 @@ namespace Project2
 							Date startDate = startDateObj->dateQ;
 
 							// maturité de l'option
-							string maturityOption = tab_mapp->search_mapping("MaturityDateQuantLib");
-							DateMust* endDateObj = new DateMust(
+							string maturityOption = tab_mapp->search_mapping("maturityOptionQuantLib");
+							DateMust* maturityObj = new DateMust(
 								pathC, maturityOption, portefeuille->AllTrades[iTrade]->tradeID);
-							Date maturity = endDateObj->dateQ;
+							Date maturity = maturityObj->dateQ;
 
 							// date de fin de la swaption
 							string endDateMust = tab_mapp->search_mapping("endDateQuantLib");
-							DateMust* maturityObj = new DateMust(
+							DateMust* endDateObj = new DateMust(
 								pathC, endDateMust, portefeuille->AllTrades[iTrade]->tradeID);
-							Date endDate = maturityObj->dateQ;
+							Date endDate = endDateObj->dateQ;
 
 							// fixedRate
 
@@ -801,8 +798,8 @@ namespace Project2
 							RateMust* fixedRateObj = new RateMust(
 								pathC, fixedRateMust, portefeuille->AllTrades[iTrade]->tradeID);
 							Rate fixedRate = fixedRateObj->rates[0];
-							fixedRateObj->SetMatrixRate(startDate, maturity, fixedRateObj->rates);
-
+							fixedRateObj->SetMatrixRate(maturity, endDate, fixedRateObj->rates);
+							
 							// Option
 							string option = tab_mapp->search_mapping("OptionQuantLib");
 							ComponentOptionMust* componentOption = new ComponentOptionMust(
@@ -827,9 +824,29 @@ namespace Project2
 							ComponentIndexMust* IndexObj = new ComponentIndexMust(
 								pathC, indexMust, portefeuille->AllTrades[iTrade]->tradeID);
 							IndexObj->SetMatrixSpread(startDate, maturity, IndexObj->spreads);
+							//	MustSwaption(ComponentPrincipalMust principal, ComponentCashFlowMust fixedLeg, ComponentCashFlowMust floatingLeg, ComponentIndexMust index, DateMust maturity, DateMust tenor, RateMust fixed_Rate);
 
+							MustSwaption *mustSwaption = new MustSwaption(*nominalObj, *fixedLegObj, *floatingLegObj, *IndexObj, *maturityObj, *endDateObj, *fixedRateObj);
 							//*******************************
-							
+							MustPricer* mustPricer = new MustPricer();
+							mustPricer->Test();
+							npv = mustPricer->Price(mustSwaption, 1, portefeuille->AllTrades[iTrade]->modele);
+
+							// limiter les NPV à 2 chiffres après la virgule
+							DeuxChiff(&npv);
+
+							// sommer les NPV
+							npvSomme += npv;
+
+							// remplir le vecteur de tuple par les résultats des NPV des trades un par un.
+							tableauNPV->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
+								portefeuille->AllTrades[iTrade]->typeProduct, npv, npvfixleg, npvfloatleg));
+
+
+							// remplir le vecteur de tuple par les résultats des grecs des trades un par un.
+							tableauGrecs->push_back(std::make_tuple(portefeuille->AllTrades[iTrade]->tradeID,
+								portefeuille->AllTrades[iTrade]->typeProduct, 0, 0, 0, 0));
+
 						} // fin de if pour tester si c un produit de type SWAPTION
 
 

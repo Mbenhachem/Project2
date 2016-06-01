@@ -1,10 +1,7 @@
 #pragma once
-#include "ComponentPrincipalMust.h"
-#include "ComponentCashFlowMust.h"
-#include"ComponentIndexMust.h"
-#include"DateMust.h"
-#include"RateMust.h"
 #include"MustProduct.h"
+#include "SwaptionVolatility.hpp"
+
 using namespace QuantLib;
 
 
@@ -30,12 +27,15 @@ public:
 			VanillaSwap::Type swapType = VanillaSwap::Payer;
 			Settlement::Type settlementType = Settlement::Cash;
 
+
+			Real fixedrate = fixedRatesFreq(fixed_Rate.matrixRate, maturity.dateQ, tenor.dateQ, fixed_LegFlow.freqQ)[0];
+			//Real fixedSpread = fixedRatesFreq(index.matrixSpread, maturity.dateQ, tenor.dateQ, floating_LegFlow.freqQ)[0];
 			boost::shared_ptr<VanillaSwap> swap(
 			new VanillaSwap(swapType, principal.nominal[0],
-			fixed_Leg->fixedSchedule(maturity.dateQ, tenor.dateQ), fixedRatesFreq(fixed_Rate.matrixRate, maturity.dateQ, tenor.dateQ, fixed_LegFlow.freqQ)[0], fixed_LegFlow.basisQ,
-			floating_leg->floatSchedule(maturity.dateQ, tenor.dateQ), myIndex, fixedRatesFreq(index.matrixSpread, maturity.dateQ, tenor.dateQ, floating_LegFlow.freqQ)[0],
+			fixed_Leg->fixedSchedule(maturity.dateQ, tenor.dateQ), fixedrate, fixed_LegFlow.basisQ,
+			floating_leg->floatSchedule(maturity.dateQ, tenor.dateQ), myIndex, 0.0,
 			floating_LegFlow.basisQ));
-			return 0;
+			return swap;
 	}
 
 	std::vector<Real> fixedRatesFreq(std::vector<std::tuple<Date, Date, Real>> matrixRate, Date settlementDate, Date maturity, Frequency fixedLegFrequency)

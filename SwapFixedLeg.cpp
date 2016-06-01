@@ -8,10 +8,6 @@
 using namespace QuantLib;
 
 
-//SwapFixedLeg::SwapFixedLeg(Real FixedRate, DayCounter FixedLegDayCounter, Frequency FixedLegFrequency)
-//:fixedRate(FixedRate), fixedLegDayCounter(FixedLegDayCounter), fixedLegFrequency(FixedLegFrequency)
-//{
-//}
 
 SwapFixedLeg::SwapFixedLeg(std::vector<std::tuple<Date, Date, Real>>  FixedRates, DayCounter FixedLegDayCounter, Frequency FixedLegFrequency)
 : fixedRates(FixedRates), fixedLegDayCounter(FixedLegDayCounter), fixedLegFrequency(FixedLegFrequency)
@@ -71,38 +67,4 @@ Schedule SwapFixedLeg::fixedSchedule(Date settlementDate, Date maturity) const
 		DateGeneration::Forward, false);
 }
 
-//Leg SwapFixedLeg::constructLeg(Date settlementDate, Date maturity, std::vector<double> nominals) const
-//{
-//	Schedule  schedule(settlementDate, maturity, Period(fixedLegFrequency),
-//		TARGET(), ModifiedFollowing, ModifiedFollowing,
-//		DateGeneration::Forward, false);
-//	return FixedRateLeg(schedule)
-//		.withNotionals(nominals)
-//		.withCouponRates(this->fixedRatesFreq(fixedRates, settlementDate, maturity, fixedLegFrequency), fixedLegDayCounter, Simple, fixedLegFrequency)
-//		.withPaymentAdjustment(ModifiedFollowing);
-//}
 
-
-
-
-//std::vector<Real> fixedRatesFreq(std::vector<std::tuple<Date, Date, Real>> matrixRate, Date settlementDate, Date maturity, Frequency fixedLegFrequency)const
-//{
-//	std::vector<Real> fixedRateFreq;
-//	//int nmbrofPeriode = 12 * Actual360().yearFraction(settlementDate, maturity);
-//	
-//	//int i = 1;
-//
-//
-//	Date startDate = settlementDate;
-//	startDate.operator+=(Period(fixedLegFrequency));
-//	int j = 1;
-//	while (startDate < maturity){
-//		
-//		while (startDate > std::get<1>(matrixRate[j])) { j++; }
-//
-//		fixedRateFreq.push_back(std::get<2>(matrixRate[j]));
-//		startDate.operator+=(Period(fixedLegFrequency));
-//	}
-//	return fixedRateFreq;
-//	
-//}
