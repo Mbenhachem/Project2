@@ -8,48 +8,62 @@ MustSwaption::MustSwaption(ComponentPrincipalMust principal, ComponentCashFlowMu
 {
 
 }
-boost::shared_ptr< PricingEngine >  MustSwaption::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure){
+void MustSwaption::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure)
+{
+
+	RelinkableHandle<YieldTermStructure> termStructure;	
+	termStructure.linkTo(termStructureforLMM());
+	boost::shared_ptr<IborIndex> index2(new Euribor6M(termStructure));
+	//index2->fixingCalendar().adjust(Date(6, October, 2014));
+
+
+	const Size size = 2 * Actual360().yearFraction(maturity.dateQ, tenor.dateQ);
+	boost::shared_ptr<LiborForwardModelProcess> process(
+		new LiborForwardModelProcess(size, index2));
+	// set-up the model
+	const Real a = 0.02;
+	const Real b = 0.4;
+	const Real c = 0.12;
+	const Real d = 0.01;
+
+	boost::shared_ptr<LmVolatilityModel> volaModel(
+		new LmLinearExponentialVolatilityModel(process->fixingTimes(), a, b, c, d));
+	boost::shared_ptr<LmCorrelationModel> corrModel(
+		new LmLinearExponentialCorrelationModel(size, 0.1, 0.1));
+
+	boost::shared_ptr<LiborForwardModel>
+		liborModel(new LiborForwardModel(process, volaModel, corrModel));
+
+
 	if (pricingEngineName == "LMM_QuantLib"){
-		//-----------------------------------LMM Engine -----------------------------------------------------
-		boost::shared_ptr<IborIndex> index(new Euribor6M(discountingTermStructure));
-		index->fixingCalendar().adjust(Date(6, October, 2014));
-		const Size size = 20;
-		boost::shared_ptr<LiborForwardModelProcess> process(
-			new LiborForwardModelProcess(size, index));
-
-		// set-up the model
-		const Real a = 0.02;
-		const Real b = 0.4;
-		const Real c = 0.12;
-		const Real d = 0.01;
-
-		boost::shared_ptr<LmVolatilityModel> volaModel(
-			new LmLinearExponentialVolatilityModel(process->fixingTimes(), a, b, c, d));
-		boost::shared_ptr<LmCorrelationModel> corrModel(
-			new LmLinearExponentialCorrelationModel(size, 0.1, 0.1));
-
-		boost::shared_ptr<LiborForwardModel>
-			liborModel(new LiborForwardModel(process, volaModel, corrModel));
-
 		boost::shared_ptr<PricingEngine> engine(
 			new LfmSwaptionEngine(liborModel,
-			index->forwardingTermStructure()));
-		return engine;
+			index2->forwardingTermStructure()));
+		swaptionquantlibEngine= engine;
 	}
 	else{
-		SwaptionVolatility vol;
-		vol.termStructure.linkTo(discountingTermStructure.currentLink());
-		Handle<SwaptionVolatilityStructure> volatility = vol.atmVolMatrix;
-		return boost::shared_ptr<PricingEngine>(
-			new BlackSwaptionEngine(discountingTermStructure, volatility));
+		if (pricingEngineName == "SwapLMMEngine"){
+			boost::shared_ptr<PricingEngine> engine(new DiscountingSwapEngine(index2->forwardingTermStructure()));
+			swapquantlibEngine= engine;
+		}
+		
+		
+		else {
+			SwaptionVolatility vol;
+			vol.termStructure.linkTo(discountingTermStructure.currentLink());
+			Handle<SwaptionVolatilityStructure> volatility = vol.atmVolMatrix;
+			swaptionquantlibEngine= boost::shared_ptr<PricingEngine>(
+				new BlackSwaptionEngine(discountingTermStructure, volatility));
+		}
 	}
 }
 
 double MustSwaption::Price(Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure, int i, string pricingEngineName)
 {
-
+	RelinkableHandle<YieldTermStructure> termStructure;
+	termStructure.linkTo(termStructureforLMM());
 	//index
-	boost::shared_ptr<IborIndex> myIndex = index.ConstructIndex(forwardingTermStructure);
+	boost::shared_ptr<IborIndex> myIndex = index.ConstructIndex(termStructure);
 
 
 	//FixedLeg
@@ -76,21 +90,26 @@ double MustSwaption::Price(Handle<QuantLib::YieldTermStructure> discountingTermS
 
 	//SwapType
 	VanillaSwap::Type swapType = VanillaSwap::Payer;
-	Settlement::Type settlementType = Settlement::Cash;
+	Settlement::Type settlementType = Settlement::Physical;
 	//Swap swap(fixedLeg, floatingLeg);
 	boost::shared_ptr<VanillaSwap> swap = constructVanillaSwap(myIndex);
-	boost::shared_ptr<PricingEngine> swapEngine(new DiscountingSwapEngine(discountingTermStructure));
 
-	swap->setPricingEngine(swapEngine);
-	
+	if (pricingEngineName != "LMM_QuantLib") swapquantlibEngine = boost::shared_ptr<PricingEngine>(new DiscountingSwapEngine(discountingTermStructure));
+	else {
+		 SetPricingEngine("SwapLMMEngine", discountingTermStructure, forwardingTermStructure);
+	}
+
+	swap->setPricingEngine(swapquantlibEngine);
+	Real a = swap->NPV();
+	Date maturityDate = TARGET().advance(maturity.dateQ, -2, Days);
 	boost::shared_ptr<Swaption> swaption(new Swaption(swap,
 		boost::shared_ptr<Exercise>(
 		new EuropeanExercise(maturity.dateQ)),
 		settlementType));
-	swaption->setPricingEngine(SetPricingEngine(pricingEngineName, discountingTermStructure, forwardingTermStructure));
+	swaption->setPricingEngine(swaptionquantlibEngine);
 	Real b = swaption->NPV();
 
-	Real a = swap->NPV();
+	
 	return b;
 }
 

@@ -20,7 +20,7 @@ public:
 
 	double Price(Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure, int i, string pricingEngineName) override;
 
-	boost::shared_ptr< PricingEngine >  SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure) override;
+	void SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure) override;
 
 
 
@@ -28,6 +28,8 @@ public:
 
 
 #pragma region"CapFloor s Parametres"
+
+	boost::shared_ptr< PricingEngine > quantlibEngine;
 	ComponentCashFlowMust floating_LegFlow;
 	ComponentPrincipalMust principal;
 	ComponentIndexMust index;

@@ -4,7 +4,7 @@
 
 
 
-boost::shared_ptr< PricingEngine >  MustCapFloor::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure){
+void  MustCapFloor::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure){
 	if (pricingEngineName == "Black"){
 		//vol
 		Volatility vol = 0.01;
@@ -20,9 +20,9 @@ boost::shared_ptr< PricingEngine >  MustCapFloor::SetPricingEngine(string pricin
 
 		//boost::shared_ptr<BlackCapFloorEngine> strippedVolEngine(new BlackCapFloorEngine(discountingTermStructure, capletsVolatilies));
 		boost::shared_ptr<BlackCapFloorEngine> strippedVolEngine(new BlackCapFloorEngine(discountingTermStructure, vol));
-		return strippedVolEngine;
+		quantlibEngine= strippedVolEngine;
 	}
-	else return 0;
+	//else return 0;
 
 }
 
@@ -78,8 +78,7 @@ double MustCapFloor::Price(Handle<QuantLib::YieldTermStructure> discountingTermS
 	//boost::shared_ptr<BlackCapFloorEngine> strippedVolEngine(new BlackCapFloorEngine(discountingTermStructure, capletsVolatilies));
 	if (pricingEngineName == "LMM") return 0;// PriceNada_Imane();
 	else{
-		boost::shared_ptr<PricingEngine> strippedVolEngine = SetPricingEngine(pricingEngineName, discountingTermStructure, forwardingTermStructure);
-		CapFloor->setPricingEngine(strippedVolEngine);
+		CapFloor->setPricingEngine(quantlibEngine);
 
 		return CapFloor->NPV();
 	}

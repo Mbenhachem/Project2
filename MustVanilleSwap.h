@@ -18,7 +18,7 @@ public:
 	MustVanilleSwap(std::vector<Real> nominals, Date settlementDate, Date maturity, Frequency fixedLegFrequency, DayCounter fixedLegDayCounter, Rate fixedRate, DayCounter floatingLegDayCounter, Frequency floatingLegFrequency);
 	*/
 	double Price(Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure, int i, string pricingEngineName) override;
-	boost::shared_ptr< PricingEngine >  SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure) override;
+	void SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure) override;
 
 
 
@@ -37,7 +37,7 @@ public:
 	DayCounter floatingLegDayCounter;
 	Frequency floatingLegFrequency;
 	*/
-
+	boost::shared_ptr< PricingEngine > SwapEngine;
 	ComponentCashFlowMust fixed_LegFlow;
 	ComponentCashFlowMust floating_LegFlow;
 	ComponentPrincipalMust principal;

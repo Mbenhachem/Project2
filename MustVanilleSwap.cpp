@@ -15,11 +15,15 @@ MustVanilleSwap::MustVanilleSwap(ComponentPrincipalMust principal, ComponentCash
 
 }
 
-boost::shared_ptr< PricingEngine >  MustVanilleSwap::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure)
+void MustVanilleSwap::SetPricingEngine(string pricingEngineName, Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure)
 {
-	boost::shared_ptr<PricingEngine> swapEngine(new DiscountingSwapEngine(discountingTermStructure));
-	return swapEngine;
+	if (pricingEngineName == "Flow")
+	{
+		boost::shared_ptr<PricingEngine> swapEngine(new DiscountingSwapEngine(discountingTermStructure));
+		SwapEngine = swapEngine;
+	}
 }
+
 double MustVanilleSwap::Price(Handle<QuantLib::YieldTermStructure> discountingTermStructure, Handle<QuantLib::YieldTermStructure> forwardingTermStructure, int i, string pricingEngineName)
 {
 	//index
@@ -52,8 +56,7 @@ double MustVanilleSwap::Price(Handle<QuantLib::YieldTermStructure> discountingTe
 	//SwapType
 	//VanillaSwap::Type swapType = VanillaSwap::Payer;
 	Swap swap(fixedLeg, floatingLeg);
-	boost::shared_ptr<PricingEngine> swapEngine = SetPricingEngine(pricingEngineName, discountingTermStructure, forwardingTermStructure);
-	swap.setPricingEngine(swapEngine);
+	swap.setPricingEngine(SwapEngine);
 
 	if (i == 1)
 	{
